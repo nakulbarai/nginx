@@ -1,0 +1,7 @@
+---
+- hosts: ec2
+  vars_files: 
+             - nginxvars.yml
+  roles:
+  - web/nginx
+  tags: nginx,web

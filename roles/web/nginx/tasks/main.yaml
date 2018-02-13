@@ -1,0 +1,29 @@
+---
+# This task will install nginx 
+
+- name: install python-software-properties
+  action: apt name='python-software-properties' state=installed
+
+- name: install nginx 
+  action: apt name=nginx state=installed
+
+- name: service nginx 
+  action: service name=nginx state=started  
+
+- name: Proxy pass any requests to application
+  template:
+    src={{ nginx_app_config }}
+    dest=/etc/nginx/sites-available/{{app}}
+
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: Enable application
+  file:
+    src=/etc/nginx/sites-available/{{app}}
+    dest=/etc/nginx/sites-enabled/{{app}}
+    state=link
+
+- name: restart nginx
+  service: name=nginx state=restarted

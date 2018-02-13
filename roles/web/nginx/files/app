@@ -1,0 +1,7 @@
+server {
+    location / {
+        proxy_pass  / http://localhost:8080/app;
+        proxy_pass  /app/xxx http://localhost:8080/app/yyy;
+        proxy_pass /app2  http://localhost:8080/app/123; 
+    }
+}
